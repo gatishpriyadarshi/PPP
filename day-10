@@ -1,0 +1,128 @@
+// Subset Sums
+#include<bits/stdc++.h>
+
+using namespace std;
+class Solution {
+  public:
+    void solve(int ind, vector < int > & arr, int n, vector < int > & ans, int sum) {
+      if (ind == n) {
+        ans.push_back(sum);
+        return;
+      }
+      //element is picked
+      solve(ind + 1, arr, n, ans, sum + arr[ind]);
+      //element is not picked
+      solve(ind + 1, arr, n, ans, sum);
+    }
+  vector < int > subsetSums(vector < int > arr, int n) {
+    vector < int > ans;
+    solve(0, arr, n, ans, 0);
+    return ans;
+  }
+};
+
+
+int main() {
+  vector < int > arr{3,1,2};
+  Solution ob;
+  vector < int > ans = ob.subsetSums(arr, arr.size());
+  sort(ans.begin(), ans.end());
+  cout<<"The sum of each subset is "<<endl;
+  for (auto sum: ans) {
+    cout << sum << " ";
+  }
+  cout << endl;
+
+  return 0;
+}
+
+// Subset – II | Print all the Unique Subsets
+#include <bits/stdc++.h>
+
+using namespace std;
+void printAns(vector < vector < int >> & ans) {
+  cout << "The unique subsets are " << endl;
+  cout << "[ ";
+  for (int i = 0; i < ans.size(); i++) {
+    cout << "[ ";
+    for (int j = 0; j < ans[i].size(); j++)
+      cout << ans[i][j] << " ";
+    cout << "]";
+  }
+  cout << " ]";
+}
+class Solution {
+  public:
+    void fun(vector < int > & nums, int index, vector < int > ds, set < vector < int >> & res) {
+      if (index == nums.size()) {
+        sort(ds.begin(), ds.end());
+        res.insert(ds);
+        return;
+      }
+      ds.push_back(nums[index]);
+      fun(nums, index + 1, ds, res);
+      ds.pop_back();
+      fun(nums, index + 1, ds, res);
+    }
+  vector < vector < int >> subsetsWithDup(vector < int > & nums) {
+    vector < vector < int >> ans;
+    set < vector < int >> res;
+    vector < int > ds;
+    fun(nums, 0, ds, res);
+    for (auto it = res.begin(); it != res.end(); it++) {
+      ans.push_back( * it);
+    }
+    return ans;
+  }
+};
+int main() {
+  Solution obj;
+  vector < int > nums = {1, 2, 2};
+  vector < vector < int >> ans = obj.subsetsWithDup(nums);
+  printAns(ans);
+  return 0;
+}
+//Combination Sum – 1
+#include<bits/stdc++.h>
+
+using namespace std;
+class Solution {
+  public:
+    void findCombination(int ind, int target, vector < int > & arr, vector < vector < int >> & ans, vector < int > & ds) {
+      if (ind == arr.size()) {
+        if (target == 0) {
+          ans.push_back(ds);
+        }
+        return;
+      }
+      // pick up the element 
+      if (arr[ind] <= target) {
+        ds.push_back(arr[ind]);
+        findCombination(ind, target - arr[ind], arr, ans, ds);
+        ds.pop_back();
+      }
+
+      findCombination(ind + 1, target, arr, ans, ds);
+
+    }
+  public:
+    vector < vector < int >> combinationSum(vector < int > & candidates, int target) {
+      vector < vector < int >> ans;
+      vector < int > ds;
+      findCombination(0, target, candidates, ans, ds);
+      return ans;
+    }
+};
+int main() {
+  Solution obj;
+  vector < int > v {2,3,6,7};
+  int target = 7;
+
+  vector < vector < int >> ans = obj.combinationSum(v, target);
+  cout << "Combinations are: " << endl;
+  for (int i = 0; i < ans.size(); i++) {
+    for (int j = 0; j < ans[i].size(); j++)
+      cout << ans[i][j] << " ";
+    cout << endl;
+  }
+}

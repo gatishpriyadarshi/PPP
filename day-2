@@ -1,0 +1,137 @@
+// Search in a 2d Matrix
+
+bool findTargetInMatrix(vector < vector < int >> & mat, int m, int n, int target) {
+
+    // Write your code here.
+
+    /*int i,j;
+
+    for(i=0; i<m ; i++)
+
+        for(j=0; j<n; j++)
+
+            if(mat[i][j]==target)
+
+                return true;
+
+    return false;*/
+
+    int i,j;
+
+    for(i=m-1; i>-1; i--)
+
+        if(target>=mat[i][0])
+
+            break;
+
+    for(j=0; j<n; j++)
+
+        if(target==mat[i][j])
+
+            return true;
+
+    return false;
+
+}
+
+
+
+// Pow(X,n)
+
+int modularExponentiation(int x, int n, int m) {
+
+   int res=1;
+
+
+
+       while(n >0){
+
+
+
+           if(n&1)                       // WHEN N IS ODD
+
+               res=(1LL*res*(x)%m )%m;            // LONG DATATYPT  TYPECAST
+
+
+
+           x =(1LL*(x)%m*(x)%m)%m;
+
+           n=n>>1;
+
+       }
+
+
+
+       return res;
+
+}
+
+// Majority Element (>N/2 times)
+
+int findMajorityElement(int arr[], int n)
+
+{
+
+int ele = arr[0], count = 1;
+
+   for(int i = 1; i < n; i++)  
+
+   {
+
+    if(arr[i] == ele)  
+
+       {
+
+        count++;
+
+       }
+
+       else
+
+       {
+
+               count--;
+
+       }
+
+
+
+       if(count == 0)  
+
+       {
+
+        ele = arr[i];
+
+           count = 1;
+
+       }
+
+   }
+
+
+
+   count = 0;
+
+   for(int i = 0; i < n; i++)
+
+   {
+
+    if(arr[i] == ele)  
+
+       {
+
+        count++;
+
+       }
+
+   }
+
+
+
+   if(count > n / 2)  
+
+    return ele;
+
+   return -1;
+
+}

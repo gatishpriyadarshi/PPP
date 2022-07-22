@@ -1,0 +1,203 @@
+// Day 1: Arrays
+ // 1. Set Matrix Zeroes
+ //solution in c++ :
+
+ #include<bits/stdc++.h>
+void setZeros(vector<vector<int>>&matrix)
+{
+    int col0=1;
+    int rows=matrix.size();
+    int cols=matrix[0].size();
+
+    for(int i =0;i<rows;i++)
+    {
+        if(matrix[i][0]==0)
+            col0=0;
+        for(int j=1;j<cols;j++)
+            if(matrix[i][j]==0)
+               matrix[i][0]=matrix[0][j]=0;
+    }
+
+    for(int i = rows-1;i>=0;i--)
+    {
+        for(int j=cols-1;j>=1;j--)
+        {
+            if(matrix[i][0]==0||matrix[0][j]==0)
+                matrix[i][j]=0;
+        }
+
+                if(col0==0)
+                {
+                    matrix[i][0]=0;
+                }
+        }
+}
+
+
+
+// Pascal’s Triangle
+
+#include <bits/stdc++.h> 
+vector<vector<long long int>> printPascal(int n) 
+{
+  // Write your code here.
+   vector<vector<long long int>> r(n);
+    for(int i=0;i<n;i++)
+    {
+        r[i].resize(i+1);
+        r[i][0] = r[i][i] = 1;
+        for(int j=1;j<i;j++)
+        {
+            r[i][j]=r[i-1][j-1]+r[i-1][j];
+        }
+
+    }
+     return r;
+}
+
+//Next Permutation
+#include <bits/stdc++.h> 
+vector<int> nextPermutation(vector<int> &permutation, int n)
+{
+    //  Write your code here.
+    int k,l;
+    for(k=n-2;k>=0;k--)
+    {
+        if(permutation[k]<permutation[k+1])
+        {
+            break;
+        }
+    }
+
+    if(k<0)
+    {
+        reverse(permutation.begin(),permutation.end());
+    }
+    else
+    {
+        for(l=n-1;l>k;l--)
+        {
+            if(permutation[l]>permutation[k])
+            {
+                break;
+            }
+        }
+        swap(permutation[k],permutation[l]);
+        reverse(permutation.begin()+k+1,permutation.end());
+    }
+
+    vector<int>ans;
+    for(int i=0;i<n;i++)
+    {
+        ans.push_back(permutation[l]);
+    }
+    return ans;
+}
+
+// Kadane’s Algorithm
+
+long long maxSubarraySum(int arr[], int n)
+
+{
+
+   long long maxsum=0;
+
+   long long currsum=0;
+
+   for(int i=0;i<n;i++)
+
+   {
+
+       currsum=currsum+arr[i];
+
+       if(currsum>maxsum)
+
+       {
+
+           maxsum=currsum;
+
+       }
+
+       if(currsum<0)
+
+       {
+
+           currsum=0;
+
+       }
+
+   }
+
+   return maxsum;
+
+
+
+}
+
+// Sort an array of 0’s 1’s 2’s
+
+ void sort012(int arr[] , int n)
+
+{
+
+    int low=0;
+
+    int mid=0;
+
+    int high=n-1;
+
+
+
+    while(mid<=high)
+
+    {
+
+        if(arr[mid]==0)
+
+        {
+
+            swap(arr[mid] ,arr[low]);
+
+            mid++;
+
+            low++;
+
+        }
+
+        if(arr[mid]==1)
+
+        {
+
+            mid++;
+
+        }
+
+        if(arr[mid]==2)
+
+        {
+
+            swap(arr[mid] ,arr[high]);
+
+            high--;
+
+        }
+
+    }
+
+}
+
+// Stock buy and Sell
+
+  int maxp = 0;
+
+   int minp = prices[0];    
+
+   for(int i=1;i<prices.size();i++){
+
+       minp = min(minp,prices[i]);
+
+       maxp = max(maxp,prices[i]-minp);
+
+   }
+
+   return maxp;

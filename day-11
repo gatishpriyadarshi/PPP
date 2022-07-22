@@ -1,0 +1,108 @@
+// Kth Largest Element
+#include <bits/stdc++.h>
+using namespace std ;
+
+class Solution {
+
+public:
+
+void kth_Largest_And_Smallest_By_AscendingOrder(vector<int>&arr, int k) {
+
+        sort(arr.begin(), arr.end())  ;
+        int n = arr.size()  ;
+
+        cout << "kth Largest element " << arr[n - k] << ", " << 
+        "kth Smallest element " << arr[k - 1];
+    }
+} ;
+int main() {
+
+    vector<int>arr = {1, 2, 6, 4, 5, 3}  ;
+
+    Solution obj ;
+
+    obj.kth_Largest_And_Smallest_By_AscendingOrder(arr, 3) ;
+
+    return 0 ;
+}
+// Max heap, Min Heap Implementation (Only for interviews)
+vector<int> minHeap(int n, vector<vector<int>>& q) {
+    priority_queue<int, vector<int>, greater<int>>pq;
+    vector<int>res; 
+    for(auto &d: q){
+        if (d[0] == 0){
+            pq.push(d[1]);
+        }
+        else if (!pq.empty()){
+            res.push_back(pq.top()); 
+            pq.pop(); 
+        }
+    }
+    return res; 
+}
+// Maximum Sum Combination
+#include<bits/stdc++.h>
+
+vector<int> kMaxSumCombination(vector<int> &A, vector<int> &B, int n, int C) {
+    vector<int> ans;
+    sort(A.begin(), A.end(), greater<int>());
+    sort(B.begin(), B.end(), greater<int>());
+
+    priority_queue<pair<int, pair<int, int>>> pq; // A[i]+B[j], <i, j>
+    set<pair<int, int>> vis; // i, j
+
+    pq.push({A[0]+B[0], {0 ,0}});
+    vis.insert({0, 0});
+
+    for(int i=0; i<C; ++i) {
+        auto p = pq.top();
+        pq.pop();
+        ans.push_back(p.first);
+
+        if(p.second.first+1 < n && vis.find({p.second.first+1, p.second.second}) == vis.end()) {
+            vis.insert({p.second.first+1, p.second.second});
+            int x = A[p.second.first+1] + B[p.second.second];
+            pq.push({x, {p.second.first+1, p.second.second}});
+        }
+        if(p.second.second+1 < n && vis.find({p.second.first, p.second.second+1}) == vis.end()) {
+            vis.insert({p.second.first, p.second.second+1});
+            int x = A[p.second.first] + B[p.second.second+1];
+            pq.push({x, {p.second.first, p.second.second+1}});
+        }
+    }
+
+    return ans;
+}
+
+// Find Median from Data Stream
+#include<bits/stdc++.h>
+void findMedian(int *arr, int n)
+{
+    if(n==0)
+        return ;
+    priority_queue<int> s;
+    priority_queue<int,vector<int>,greater<int>> g; 
+    s.push(*(arr));
+    cout<<s.top()<<" ";
+    for(int i=1;i<n;i++){
+        if(s.size()>g.size()){
+            if(s.top()>*(arr+i) ){
+                g.push(s.top()),s.pop(),s.push(*(arr+i));
+            }
+            else{
+                g.push(*(arr+i));
+            }
+            cout<<((int)s.top()+g.top())/2<<" ";
+        }
+        else{
+            if(s.top()>*(arr+i) || g.top()<*(arr+i)){
+                g.push(*(arr+i)),s.push(g.top()),g.pop();
+            }
+            else{
+                s.push(*(arr+i));
+            }
+            cout<<s.top()<<" ";
+        }
+    }
+//     return ans;
+}

@@ -1,0 +1,99 @@
+// Reverse a LinkedList
+LinkedListNode<int> *reverseLinkedList(LinkedListNode<int> *head)  
+
+{
+
+   // Write your code here
+
+   LinkedListNode<int> *dummynode = NULL;
+
+   while(head != NULL){
+
+    LinkedListNode<int> *nextt = head->next;
+
+    head->next = dummynode;
+
+       dummynode = head;
+
+       head = nextt;
+
+   }
+
+   return dummynode;
+
+}
+
+// Find the middle of LinkedList
+Node *findMiddle(Node *head) {
+
+   // Write your code here
+
+   Node *slow=head;
+
+   Node *fast=head;
+
+   while(fast != NULL && fast -> next != NULL)
+
+   {
+
+       slow = slow -> next;
+
+       fast = fast -> next -> next;
+
+   }
+
+   return slow;
+
+}
+
+ // Merge two sorted Linked List (use method used in mergeSort)
+
+ #include<bits/stdc++.h>
+
+Node<int>* sortTwoLists(Node<int>* l1, Node<int>* l2)
+
+{
+
+   // Write your code here.
+
+   if(l1 == NULL)return l2;
+
+   if(l2== NULL )return l1;
+
+   if( l1 -> data > l2->data){
+
+       std::swap(l1,l2);
+
+   }
+
+   Node<int>* res=l1;
+
+   while( l1 != NULL && l2!=NULL)
+
+   {
+
+       Node<int>* temp=NULL;
+
+       while(l1 != NULL && l1->data <= l2->data)
+
+       {
+
+           temp = l1;
+
+           l1=l1->next;
+
+       }
+
+       temp -> next=l2;
+
+       std::swap(l1,l2);
+
+
+
+   }
+
+   return res;
+
+
+
+}

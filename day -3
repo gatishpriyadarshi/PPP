@@ -1,0 +1,212 @@
+// Rotate Matrix
+
+void rotateMatrix(vector<vector<int>> &mat, int n, int m)
+
+{
+
+   // Write your code here
+
+  int r=0,c=0;
+
+   int prev,cr;
+
+   while(r<n && c<m)
+
+   {
+
+       if(r+1==n || c+1==m)
+
+           break;
+
+       prev=mat[r+1][c];
+
+        for (int i = c; i < m; i++)
+
+       {
+
+           cr = mat[r][i];
+
+           mat[r][i] = prev;
+
+           prev = cr;
+
+       }
+
+       r++;
+
+        for (int i = r; i < n; i++)
+
+       {
+
+           cr = mat[i][m-1];
+
+           mat[i][m-1] = prev;
+
+           prev = cr;
+
+       }
+
+       m--;
+
+         if (r < n)
+
+       {
+
+           for (int i = m-1; i >= c; i--)
+
+           {
+
+               cr = mat[n-1][i];
+
+               mat[n-1][i] = prev;
+
+               prev = cr;
+
+           }
+
+       }
+
+       n--;
+
+       if (c < m)
+
+       {
+
+           for (int i = n-1; i >= r; i--)
+
+           {
+
+               cr = mat[i][c];
+
+               mat[i][c] = prev;
+
+               prev = cr;
+
+           }
+
+       }
+
+       c++;
+
+
+
+   }
+
+
+
+}
+
+
+// Merge Overlapping Subintervals
+
+#include<algorithm>
+
+vector<vector<int>> mergeIntervals(vector<vector<int>> &intervals)
+
+{
+
+   // Write your code here.
+
+   vector<vector<int> > mergeAns;
+
+ sort(intervals.begin(),intervals.end());
+
+   vector<int> pr=intervals[0];
+
+   for(int i=1;i<intervals.size();i++)
+
+   {
+
+       if(intervals[i][0]<=pr[1])
+
+       {
+
+           pr[1]=max(pr[1],intervals[i][1]);
+
+       }
+
+       else
+
+       {
+
+           mergeAns.push_back(pr);
+
+            pr=intervals[i];
+
+       }
+
+   }
+
+   mergeAns.push_back(pr);
+
+
+
+   return mergeAns;
+
+}
+
+
+
+// Merge two sorted Arrays without extra space
+
+vector<int> ninjaAndSortedArrays(vector<int>& arr1, vector<int>& arr2, int m, int n) {
+
+   vector<int>v;
+
+   int i=0,j=0;
+
+while(i<m  && j<n)
+
+   {  
+
+       if(arr1[i]<arr2[j])
+
+       {
+
+           v.push_back(arr1[i++]);
+
+
+
+       }
+
+//         else if(arr1[i]==arr2[j])
+
+//         {
+
+//              v.push_back(arr1[i++]);
+
+//              v.push_back(arr2[j++]);
+
+
+
+//         }
+
+       else
+
+       {
+
+            v.push_back(arr2[j++]);
+
+       }
+
+   }
+
+   while(i<m)
+
+   {
+
+        v.push_back(arr1[i++]);
+
+   }
+
+   while(j<n)
+
+   {
+
+        v.push_back(arr2[j++]);
+
+   }
+
+   return v;
+
+}

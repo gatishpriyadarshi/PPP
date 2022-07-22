@@ -1,0 +1,140 @@
+// Rotate a LinkedList
+#include<bits/stdc++.h>
+using namespace std;
+
+class node {
+    public:
+        int num;
+        node* next;
+        node(int a) {
+            num = a;
+            next = NULL;
+        }
+};
+//utility function to insert node at the end of the list
+void insertNode(node* &head,int val) {
+    node* newNode = new node(val);
+    if(head == NULL) {
+        head = newNode;
+        return;
+    }
+    node* temp = head;
+    while(temp->next != NULL) temp = temp->next;
+
+    temp->next = newNode;
+    return;
+}
+//utility function to rotate list by k times
+node* rotateRight(node* head,int k) {
+    if(head == NULL||head->next == NULL) return head;
+    for(int i=0;i<k;i++) {
+        node* temp = head;
+        while(temp->next->next != NULL) temp = temp->next;
+        node* end = temp->next;
+        temp->next = NULL;
+        end->next = head;
+        head = end;
+    }
+    return head;
+}
+//utility function to print list
+void printList(node* head) {
+    while(head->next != NULL) {
+        cout<<head->num<<"->";
+        head = head->next;
+    } 
+    cout<<head->num<<endl;
+    return;
+}
+
+int main() {
+    node* head = NULL;
+    //inserting Node
+    insertNode(head,1);
+    insertNode(head,2);
+    insertNode(head,3);
+    insertNode(head,4);
+    insertNode(head,5);
+
+    cout<<"Original list: ";
+    printList(head);
+
+    int k = 2;
+    node* newHead = rotateRight(head,k);//calling function for rotating right of 
+    the nodes by k times
+
+    cout<<"After "<<k<<" iterations: ";
+    printList(newHead);//list after rotating nodes
+    return 0;
+}
+
+
+// 3 sum
+#include<bits/stdc++.h>
+
+using namespace std;
+vector < vector < int >> threeSum(vector < int > & nums) {
+  vector < vector < int >> ans;
+  vector < int > temp;
+  int i, j, k;
+  for (i = 0; i < nums.size() - 2; i++) {
+    for (j = i + 1; j < nums.size() - 1; j++) {
+      for (k = j + 1; k < nums.size(); k++) {
+        temp.clear();
+        if (nums[i] + nums[j] + nums[k] == 0) {
+          temp.push_back(nums[i]);
+          temp.push_back(nums[j]);
+          temp.push_back(nums[k]);
+        }
+        if (temp.size() != 0)
+          ans.push_back(temp);
+      }
+    }
+  }
+
+  return ans;
+}
+
+int main() {
+  vector < int > arr { -1, 0, 1, 2, -1, -4};
+  vector < vector < int >> ans;
+  ans = threeSum(arr);
+  cout << "The triplets are as follows: " << endl;
+  for (int i = 0; i < ans.size(); i++) {
+    for (int j = 0; j < ans[i].size(); j++) {
+      cout << ans[i][j] << " ";
+    }
+    cout << endl;
+  }
+  return 0;
+}
+
+// Trapping Rainwater
+#include<bits/stdc++.h>
+
+using namespace std;
+int trap(vector < int > & arr) {
+  int n = arr.size();
+  int waterTrapped = 0;
+  for (int i = 0; i < n; i++) {
+    int j = i;
+    int leftMax = 0, rightMax = 0;
+    while (j >= 0) {
+      leftMax = max(leftMax, arr[j]);
+      j--;
+    }
+    j = i;
+    while (j < n) {
+      rightMax = max(rightMax, arr[j]);
+      j++;
+    }
+    waterTrapped += min(leftMax, rightMax) - arr[i];
+  }
+  return waterTrapped;
+}
+
+int main() {
+  vector < int > arr;
+  arr = {0,1,0,2,1,0,1,3,2,1,2,1};
+  cout << "The water that can be trapped is " << trap(arr) << endl;
+}

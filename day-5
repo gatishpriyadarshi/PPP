@@ -1,0 +1,72 @@
+// 2-Sum-Problem
+#include<bits/stdc++.h>
+
+vector<vector<int>> pairSum(vector<int> &arr, int s){
+
+  // Write your code here.
+
+   int n=arr.size();
+
+   vector<vector<int>>ans;
+
+   for(int i=0;i<n;i++)
+
+   {
+
+       for(int j=i+1;j<n;j++)
+
+       {
+
+           if(arr[i]+arr[j]==s)  
+
+               ans.push_back(vector<int>{min(arr[i],arr[j]),max(arr[i],arr[j])});
+
+       }
+
+   }
+
+   sort(ans.begin(),ans.end());
+
+
+
+   return ans;
+
+}
+
+// 4-sum-Problem
+
+#include <bits/stdc++.h>  
+string fourSum(vector<int> arr, int target, int n) {  
+sort(arr.begin(),arr.end());  
+for(int i =0;i<n-3;i++)    {     
+for(int j = i+1;i<n-2;j++)    
+{          
+int target2=target - arr[j] - arr[i];        
+int front =j+1;          
+int back=n-1;        
+while(front<back)      
+{               
+int sum2 = arr[front]+arr[back];           
+if(sum2<target2) 
+front++;            
+else if(sum2>target2)
+back--;           
+else              
+{    return "Yes";      
+int a=arr[front];       
+int b =arr[back];       
+++front;                
+--back;               
+//while(front<back && a==arr[front])
+++front;                
+//while(front<back && b==arr[back]) --back;      
+}          
+}        
+while(j+1<n&&arr[j+1]==arr[j]);  
+} while(i+1<n&&arr[i+1]==arr[i]); 
+}
+return "No"; 
+}
+
+
+// Longest Consecutive Sequence
